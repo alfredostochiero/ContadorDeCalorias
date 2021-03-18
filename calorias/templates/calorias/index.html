@@ -20,7 +20,7 @@
 
         <br><br>
 
-        <h2 class="d-flex align-items-center justify-content-center">Meta Calorica</h2>
+        <h2 class="d-flex align-items-center justify-content-center">Meta Calorica : {{metaCalorica}}</h2>
         <br>
         <!-- Progress Bar para meta de calorias diarias  -->
         <div class="row">
@@ -43,6 +43,15 @@
                 <button type="submit" class="btn btn-primary">Adicionar</button>
             </div>
         </form>
+            <form method="POST">
+            <div class="form-group row">
+                {% csrf_token %}
+                <input type="number" value="Adicionar meta" name="meta_calorica" id="meta_calorica">
+                <input type="submit" class="btn btn-success">
+            </div>
+        </form>
+
+
 
         <div class="row">
             <div class="col-md-6">
@@ -55,6 +64,7 @@
                             <th>Proteinas (gm)</th>
                             <th>Gorduras  (gm)</th>
                             <th>Carboidratos (gm)</th>
+                            <th>Remover Item </th>
                         </tr>
                     </thead>
                     {% for cfood in consumed_food %}
@@ -64,6 +74,7 @@
                         <th>{{cfood.food_consumed.protein}} </th>
                         <th>{{cfood.food_consumed.fats}} </th>
                         <th>{{cfood.food_consumed.carbs}} </th>
+                        <th><a href="{% url 'delete' cfood.id %}" class="btn btn-danger">Remove </th>
                     {% endfor %}
                     </tr>
                     <tr>
@@ -93,7 +104,7 @@
         var myChart = new Chart(ctx, {
         type: 'pie',
         data: {
-            labels: ['Carbs', 'Proteinas', 'Gorduras'],
+            labels: ['Carbs'+{{porce_carboidratos}}+'%', 'Proteinas'+{{porce_proteinas}}+'%', 'Gorduras'+{{porce_gorduras}}+'%'],
             datasets: [{
                 label: '# of Votes',
                 data: [{{porce_carboidratos}},{{porce_proteinas}},{{porce_gorduras}}],
@@ -115,15 +126,7 @@
                 borderWidth: 1
             }]
         },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                     }
-                 }]
-                }
-            }
+
         });
     </script>
 </body>

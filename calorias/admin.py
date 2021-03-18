@@ -1,5 +1,5 @@
 from django.contrib import admin
-from . models import Food, Consume
+from . models import Food, Consume,Goal
 # Register your models here.
 
 @admin.register(Food)
@@ -9,5 +9,9 @@ class FoodAdmin(admin.ModelAdmin):
 @admin.register(Consume)
 class ConsumeAdmin(admin.ModelAdmin):
     list_display = ('user',)
+
+@admin.register(Goal)
+class GoalAdmin(admin.ModelAdmin):
+    list_display = ('user','calorie_goal')
 
 

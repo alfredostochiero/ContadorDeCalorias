@@ -20,5 +20,7 @@ class Consume(models.Model):
     def __str__(self):
         return self.food_consumed.name
 
-
+class Goal(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    calorie_goal = models.IntegerField()
 
